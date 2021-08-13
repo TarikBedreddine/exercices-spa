@@ -1,4 +1,6 @@
 import { Element } from './frameworkTypes';
+import { Observable } from "./Observable";
+import { Observer } from './Observer';
 
 // parent class for components
 abstract class Component {
@@ -22,13 +24,19 @@ function elementsToHTML(virtualDom) {
   const tagName = virtualDom.name
   const el = document.createElement(tagName)
 
-  const isClass = virtualDom.attributes?.class || false
-  if (isClass) {
-    el.setAttribute('class', virtualDom.attributes.class)
+  console.log(el);
+  
+
+  const attributes = virtualDom.attributes
+  for (const key in attributes) {
+    el.setAttribute(key, attributes[key] )
   }
 
-  if (virtualDom.children[0] &&  typeof virtualDom.children[0] === 'string') {
-    el.innerHTML = virtualDom.children[0]
+  const children = virtualDom.children
+  for (const key in children) {
+    if (typeof children[key] === 'string') {
+      el.innerHTML = children[key]
+    }
   }
   
   virtualDom.children.forEach(element => {
@@ -71,12 +79,14 @@ function start(rootComponent, rootHtml: HTMLElement): void {
   const rootInstance = new rootComponent();
   const rootRender = rootInstance.render();
   const virtualDom = getVirtualDom(rootRender);
-  console.log(virtualDom);
   
   const site = elementsToHTML(virtualDom);
   rootHtml.appendChild(site)
-  console.log(site);
 
+  const obs = new Observable()
+  const inputEl = document.getElementById('input-test')
+  obs.registerObservable(inputEl, 'keyup')
+  obs.addObserver(fn => console.log(fn));
 }
 
 export {

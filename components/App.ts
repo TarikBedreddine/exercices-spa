@@ -9,8 +9,10 @@ class App extends ε.Component {
     return ε.createElement(
       'div',
       {},
-      [ε.createElement(Header, {}, [])]
-      );
+      [
+        ε.createElement(Header, {}, [])
+      ]
+    );
   }
 }
 

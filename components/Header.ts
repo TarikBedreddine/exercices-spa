@@ -10,15 +10,14 @@ import Title from './Title';
   //     </div>
 
 class Header extends ε.Component {
-
   render() {
     return ε.createElement(
         'div',
         {
-          class: "w-full flex justify-center items-center border-2 bg-gray-300",
+          class: "w-full flex justify-center items-center border-2 bg-gray-300"
         },
         [
-          ε.createElement(Title,{type: "h1"}, ["Hello world"])
+          ε.createElement(Title, {type: "h1"}, ["Hello world"])
         ]
       )
   }
